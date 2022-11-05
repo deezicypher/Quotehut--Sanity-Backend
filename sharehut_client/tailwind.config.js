@@ -47,7 +47,7 @@ module.exports = {
       backgroundColor: {
         mainColor: '#FBF8F9',
         secondaryColor: '#F0F0F0',
-        blackOverlay: 'rgba(0, 0 ,0 ,0.7)',
+        blackOverlay: 'rgb(0 0 0 / 84%)',
       },
       keyframes: {
         'slide-in': {

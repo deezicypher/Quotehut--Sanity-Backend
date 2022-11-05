@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Login from "./components/Login";
 
 const router = createBrowserRouter([
   {
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
     element:( <div className='text-3xl font-bold underline'>
     Hello world!
   </div>)
+  },
+  {
+    path:"/Login",
+    element: <Login/>
   }
 ]) 
 
