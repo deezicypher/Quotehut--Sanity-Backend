@@ -2,13 +2,38 @@ import React from 'react';
 import bgimage from '../assets/img/share-bg.jpeg';
 import logo from '../assets/img/apelogo.png';
 import { useGoogleLogin} from '@react-oauth/google';
-
+import axios from 'axios';
+import { client } from '../sanity';
 import {FcGoogle} from 'react-icons/fc';
-const Login = () => {
-    const login = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
-      });
+import { useNavigate } from 'react-router-dom';
 
+
+const Login = () => {
+    const navigate = useNavigate();
+
+    const login = useGoogleLogin({
+        onSuccess: async tokenResponse => {
+            // fetching userinfo can be done on the client or the server
+            const userInfo = await axios
+              .get('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+              }).then(res => res.data)
+            
+
+            const {name, picture, sub} = userInfo;
+            const doc = {
+                _id:sub,
+                _type:'user',
+                userName:name,
+                image:picture
+            }
+            localStorage.setItem('user', JSON.stringify(doc))
+            client.createIfNotExists(doc).then(()=> {
+                navigate('/',{replace:true})
+            })
+
+          },
+      });
 
 
     return (
@@ -29,7 +54,8 @@ const Login = () => {
                                 >
 
                                     <FcGoogle className="mr-4"/> Sign in with Google
-                                </button>    
+                                </button>  
+                                  
                         
                     </div>
                 </div>

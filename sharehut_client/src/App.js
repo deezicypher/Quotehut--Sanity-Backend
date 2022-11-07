@@ -3,13 +3,23 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from "./components/Login";
+import Home from "./pages/Home.js";
+import Pins from "./pages/Pins";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element:( <div className='text-3xl font-bold underline'>
-    Hello world!
-  </div>)
+    element: <Home/>
+  },
+  {
+    path:"/profile/:id",
+    element: <Profile/>
+  },
+  ,
+  {
+    path:"/categories/:id",
+    element: <Pins/>
   },
   {
     path:"/Login",
