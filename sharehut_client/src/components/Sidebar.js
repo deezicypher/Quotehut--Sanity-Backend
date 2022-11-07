@@ -57,7 +57,7 @@ const Sidebar = ({user, closeToggle}) => {
             to={`/profile/${user.userName}`}
             onClick={handleCloseSidebar}
             className="flex my-5 mb-3 gap-2 p-2 items-center  bg-white rounded-lg shadow-lg mx-3">
-                <img src={user.image} className="w-10 h-10 rounded-full" alt="" />
+                <img src={user.image} referrerpolicy="no-referrer" className="w-2 h-2 rounded-full" alt="" />
             <p>{user.userName}</p>
             </Link>
         )}

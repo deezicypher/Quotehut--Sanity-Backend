@@ -17,7 +17,6 @@ const Layout = () => {
     const scrollRef = useRef(null);
 
     useEffect(()=> {
-        console.log("omo")
         //scrollRef.current.scrollTo(0,0)
         const query = userQuery(userInfo?._id);
         client.fetch(query)
@@ -40,7 +39,7 @@ const Layout = () => {
                     <img src={logo} alt="logo" className='w-24'/>
                 </Link>
                 <Link to={`/profile/${user?.username}`}>
-                    <img src={logo} alt="logo" className='w-12'/>
+                    <img src={user?.image} referrerpolicy="no-referrer" alt="" className='w-12 rounded-full'/>
                 </Link>
             </div> 
             {toggleNav && (
@@ -53,7 +52,7 @@ const Layout = () => {
             )}
             </div>
 
-           <Outlet/>
+           <Outlet context={user}/>
         </div> 
 
     );
