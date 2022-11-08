@@ -39,7 +39,7 @@ const Layout = () => {
                     <img src={logo} alt="logo" className='w-24'/>
                 </Link>
                 <Link to={`/profile/${user?.username}`}>
-                    <img src={user?.image} referrerpolicy="no-referrer" alt="" className='w-12 rounded-full'/>
+                    <img src={user?.image} referrerPolicy="no-referrer" alt="" className='w-12 rounded-full'/>
                 </Link>
             </div> 
             {toggleNav && (

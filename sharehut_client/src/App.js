@@ -6,8 +6,8 @@ import Layout from "./components/Layout";
 import Login from "./components/Login";
 import Home from "./pages/Home.js";
 import PinDetail from "./pages/PinDetail";
-import Pins from "./pages/Pins";
 import Profile from "./pages/Profile";
+import Feed from "./pages/Feed";
 
 const router = createBrowserRouter([
   {
@@ -25,19 +25,16 @@ const router = createBrowserRouter([
       ,
       {
         path:"/categories/:id",
-        element: <Pins/>
+        element: <Feed/>
       },
       {
         path:"/Pin/:id",
         element: <PinDetail/>
-      },
-      {
-        path:"/Login",
-        element: <Login/>
       }
-    ]
-  },
- 
+    ]},  {
+      path:"/Login",
+      element: <Login/>
+    }
 ]) 
 
 function App() {
