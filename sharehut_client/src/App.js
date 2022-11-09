@@ -8,6 +8,7 @@ import Home from "./pages/Home.js";
 import PinDetail from "./pages/PinDetail";
 import Profile from "./pages/Profile";
 import Feed from "./pages/Feed";
+import CreatePin from "./pages/createPin";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path:"/",
         element: <Home/>
+      },
+      {
+        path:"/create",
+        element: <CreatePin/>
       },
       {
         path:"/profile/:id",
