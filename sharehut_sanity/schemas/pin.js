@@ -9,7 +9,7 @@ export default {
             type: 'string'
         },
         {
-            name:'qoute',
+            name:'quote',
             title:'Quote',
             type:'string'
         },
