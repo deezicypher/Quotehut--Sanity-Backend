@@ -8,10 +8,11 @@ const activeStyle = 'flex items-center px-5 font-extrabold border-r-2 border-bla
 const Sidebar = ({user, closeToggle}) => {
 
     const categories = [
-        { name:"Animals"},
-        {name:"Wallpapers"},
+        { name:"Philosophy"},
+        {name:"Self Development"},
         {name:"Coding"},
-        {name:"Animals"},
+        {name:"Art"},
+        {name:"Movies"},
     ]
     
     const handleCloseSidebar = () => {
