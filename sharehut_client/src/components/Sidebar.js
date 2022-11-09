@@ -30,7 +30,7 @@ const Sidebar = ({user, closeToggle}) => {
                     className="flex px-5 gap-2 my-6 pt-1 w-190 items-center"
                     onClick={handleCloseSidebar}
                     >
-                    <img src={logo} alt="" className='w-12' />
+                    <span className='font-bold text-base text-gray-700'>QuoteHut</span><img src={logo} alt="" className='w-12' />
                     </Link>
             </div>
 
