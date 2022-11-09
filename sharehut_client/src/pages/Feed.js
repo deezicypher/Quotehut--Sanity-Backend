@@ -37,6 +37,7 @@ const Feed = () => {
                 <Header/>
             </div>
             <div className='h-full'>
+                
             {pins && <MasonryGrid pins={pins} />}
             </div>
         </div>

@@ -20,7 +20,7 @@ const MasonryGrid = ({pins}) => {
 
 >
 {pins.map(pin => (
-    <Pin key={pin?._id} pin={pin} />
+    <Pin key={pin?._id} pin={pin}/>
 ))}
 
 </Masonry>

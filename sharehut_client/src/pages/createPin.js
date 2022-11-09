@@ -24,7 +24,8 @@ const CreatePin = () => {
     const handleChange = e => {
         setInputs({...inputs, [e.target.name]: e.target.value});
     }
-
+  
+   
     const user = useOutletContext();
     const categories = [
         { name:"Philosophy"},
@@ -49,6 +50,7 @@ const CreatePin = () => {
     }
 
     const handlePublish = () => {
+        console.log(inputs)
         if(title && image.url && quote && about && category){
             setLoading(true)
             const doc = {
@@ -59,28 +61,29 @@ const CreatePin = () => {
                 category,
                 image:{
                     _type:'image',
-                    assets:{
+                    asset:{
                         _type:'reference',
                         _ref:image._id,
                     }
                 },
                 userId:user._id,
                 postedBy:{
-                    _type:'postedBy' ,
-                    _id:user._id,
+                    _type:'postedBy',
+                    _ref:user._id,
                 }
             }
             client.create(doc)
             .then(data => {
                 navigate('/')
             })
-        }else 
+        }else  {
         setLoading(false)
         setErr(true);
-
-        setTimeout(()=> {
+        window.scrollTo(0,0)
+        setTimeout(()=> { 
             setErr(false)
-        },3000)
+        },5000)
+    }
     }
 
     return (
@@ -125,7 +128,8 @@ const CreatePin = () => {
                         </label> : 
                         <div className='relative h-full'>
                             <img src={image.url} alt="" className='h-full w-full' />
-                            <button type='button' onClick={prev => setInputs({...prev,image:null})} className=' absolute bottom-3 right-3 p-3 cursor-pointer bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-6 h-6  text-xl hover:shadow-md outlined-none transition-all duration-500 ease-in-out'>
+          
+                            <button type='button' onClick={prev => setInputs({...prev,image:null})} className=' absolute flex items-center justify-center bottom-3 right-3  cursor-pointer bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-8 h-8  text-xl hover:shadow-md outlined-none transition-all duration-500 ease-in-out'>
 <AiFillDelete/>
     </button>
                         </div>
@@ -164,12 +168,12 @@ const CreatePin = () => {
                         <div className='flex flex-col'>
                             <select
                              name='category'
-                             onchange={handleChange}
+                             onChange={handleChange}
                              className='outline-none w-4/5 p-2 text-base text-gray-700 border-gray-200 border-b-2 rounded-md cursor-pointer'
                              >
-                                <option value='other' className='bg-white'>Select Category</option>
+                                <option value='other' name="category" className='bg-white'>Select Category</option>
                                 {categories.map(category => (
-                                    <option value={category.name} onChange={handleChange} className='text-base border-0 capitalize bg-white outline-none'>{category.name}</option>
+                                    <option value={category.name} name="category"  className='text-base border-0 capitalize bg-white outline-none'>{category.name}</option>
                                 ))}
                             </select>
                         </div>
