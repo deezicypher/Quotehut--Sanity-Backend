@@ -14,14 +14,8 @@ const MasonryGrid = ({pins}) => {
 
     return (
         <div>
-            <Masonry
-  breakpointCols={breakpointColumnsObj}
-  className="flex animate-slide-fwd"
-
->
-{pins.map(pin => (
-    <Pin key={pin?._id} pin={pin}/>
-))}
+            <Masonry breakpointCols={breakpointColumnsObj} className="flex animate-slide-fwd" >
+{ pins.map(pin => ( <Pin key={pin?._id} pin={pin}/> )) }
 
 </Masonry>
         </div>
