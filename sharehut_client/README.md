@@ -1,6 +1,6 @@
-# ShareHut front-end with REACT
+# QuoteHut front-end with REACT
 
-Front end interface of a User photo and video sharing app.
+Front end interface of a Quote sharing app.
 
 ## Available Scripts
 
