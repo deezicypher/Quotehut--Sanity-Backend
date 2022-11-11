@@ -10,8 +10,8 @@ export const searchQuery = (searchTerm) => {
             }
         },
         _id,
-        destination,
         about,
+        quote,
         postedBy -> {
             _id,
             userName,
@@ -36,8 +36,8 @@ export const feedQuery = `*[_type == 'pin'] | order(_createdAt desc){
         }
     },
     _id,
-    destination,
     about,
+    quote,
     postedBy -> {
         _id,
         userName,
@@ -100,7 +100,8 @@ export const similarPin = (pin) => {
           }
         },
         _id,
-        destination,
+        about,
+        quote,
         postedBy->{
           _id,
           userName,
@@ -126,7 +127,8 @@ export const userCreatedPinsQuery = (userId) => {
         }
       },
       _id,
-      destination,
+      about,
+      quote,
       postedBy->{
         _id,
         userName,
@@ -155,7 +157,8 @@ export const unsavePinQ = (id,userId) => {
         }
       },
       _id,
-      destination,
+      about,
+      quote,
       postedBy->{
         _id,
         userName,
