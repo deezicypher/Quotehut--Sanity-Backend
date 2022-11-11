@@ -15,9 +15,16 @@ const notActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-bl
 const activeStyle = 'flex items-center px-5 font-extrabold border-r-2 border-black gap-3 text-gray-500  transition-all duration-200 ease-in-out capitalize'
 const Sidebar = ({user, closeToggle}) => {
 
+    const slugify = str =>
+        str
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
     const categories = [
         { name:"Philosophy",
-        image: philosophy
+        image: philosophy,
     },
         {name:'Life', image: life},
         {name:"Self Development", image: self},
@@ -58,7 +65,7 @@ const Sidebar = ({user, closeToggle}) => {
                     </h3>
                     {categories.slice(0, categories.length-1).map(category => (
                         <NavLink 
-                        to={`/categories/${category.name}`}
+                        to={`/categories/${slugify(category.name)}`}
                         onClick={handleCloseSidebar}
                         className={({isActive}) => isActive ? activeStyle : notActiveStyle}
                         key={category.name}>
