@@ -8,7 +8,7 @@ import {AiFillDelete} from 'react-icons/ai';
 const Pin = ({pin:{_id, image, postedBy, destination,save}}) => {
     const navigate = useNavigate();
     const [postHovered, setPostHovered] = useState(false);
-    const user = useOutletContext();
+    const {user} = useOutletContext();
 
     const alreadySaved = !!(save?.filter(item => item.postedBy._id === user._id))?.length
 

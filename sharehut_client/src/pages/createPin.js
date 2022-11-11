@@ -26,7 +26,7 @@ const CreatePin = () => {
     }
   
    
-    const user = useOutletContext();
+    const {user} = useOutletContext();
     const categories = [
         { name:"Philosophy"},
         {name:'Life'},

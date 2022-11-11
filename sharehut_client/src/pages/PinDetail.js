@@ -15,7 +15,7 @@ const PinDetail = () => {
     const [comment, setComment] = useState();
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
-    const user = useOutletContext();
+    const {user} = useOutletContext();
 
 
     const fetchDetails = () => {

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {AiOutlineSearch} from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Routes,Route, useNavigate } from 'react-router-dom';
 import {useOutletContext} from 'react-router-dom';
 import {BsFillPenFill} from 'react-icons/bs';
+import Search from '../pages/Search';
 
-const Header = ({searchTerm, setSearchTerm}) => {
+const Header = () => {
     const naviagte = useNavigate();
-    const user = useOutletContext();
+    const {user} = useOutletContext();
+    const {searchTerm, setSearchTerm} = useOutletContext();
     //if(!user) return null;
   
     return (
@@ -31,6 +33,7 @@ const Header = ({searchTerm, setSearchTerm}) => {
             to='create'
             className="hidden md:block"><BsFillPenFill fontSize={24} /></Link>
         </div>
+     
         </div>
     );
 };

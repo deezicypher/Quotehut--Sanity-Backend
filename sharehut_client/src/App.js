@@ -9,6 +9,7 @@ import PinDetail from "./pages/PinDetail";
 import Profile from "./pages/Profile";
 import Feed from "./pages/Feed";
 import CreatePin from "./pages/createPin";
+import Search from "./pages/Search";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,11 @@ const router = createBrowserRouter([
         path:"/profile/:id",
         element: <Profile/>
       },
-      ,
+      {
+        path:"/search",
+        element: <Search/>
+      },
+      
       {
         path:"/categories/:id",
         element: <Feed/>

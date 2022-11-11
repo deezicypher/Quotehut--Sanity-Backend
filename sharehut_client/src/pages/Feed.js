@@ -11,7 +11,7 @@ const Feed = () => {
 
     const [loading, setLoading] = useState(true);
     const {id} = useParams();
-
+   
     const slugToText = (slug) => {
         return slug.toLowerCase().replace(/-/g,' ')
     }
@@ -39,7 +39,7 @@ const Feed = () => {
         <div className='flex-1 px-2 md:px-5'>
            
             <div className='bg-gray-50'>
-                <Header/>
+                <Header />
             </div>
             <div className='h-full'>
                 
