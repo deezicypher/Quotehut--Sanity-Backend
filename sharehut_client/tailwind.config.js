@@ -6,6 +6,9 @@ module.exports = {
       margin: {
         320: '320px',
       },
+      fontSize: {
+        xsm: '5px'
+      },
       width: {
         190: '190px',
         275: '275px',
@@ -48,7 +51,8 @@ module.exports = {
         mainColor: '#FBF8F9',
         secondaryColor: '#F0F0F0',
         blackOverlay: 'rgb(0 0 0 / 84%)',
-        quotes:'#000000c9'
+        quotes:'#000000c9',
+        hQuotes:'#000000a3'
       },
       keyframes: {
         'slide-in': {
