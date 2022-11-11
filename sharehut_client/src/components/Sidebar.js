@@ -22,6 +22,9 @@ const Sidebar = ({user, closeToggle}) => {
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_-]+/g, '-')
             .replace(/^-+|-+$/g, '');
+
+    
+
     const categories = [
         { name:"Philosophy",
         image: philosophy,

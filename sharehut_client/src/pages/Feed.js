@@ -10,12 +10,15 @@ const Feed = () => {
     const [pins, setPins] = useState();
 
     const [loading, setLoading] = useState(true);
-    const {categoryId} = useParams();
+    const {id} = useParams();
 
+    const slugToText = (slug) => {
+        return slug.toLowerCase().replace(/-/g,' ')
+    }
     useEffect(()=> {
         setLoading(true)
-        if(categoryId){
-            const query = searchQuery(categoryId)
+        if(id){
+            const query = searchQuery(id)
             client.fetch(query).then(data => {
                 
                 setPins(data)
@@ -28,17 +31,22 @@ const Feed = () => {
                 setLoading(false)
             })
         }
-    },[])
+    },[id])
     if(loading) return <Spinner message="we are adding new details to your feed" />
+    
+
     return (
         <div className='flex-1 px-2 md:px-5'>
-            
+           
             <div className='bg-gray-50'>
                 <Header/>
             </div>
             <div className='h-full'>
                 
-            {pins && <MasonryGrid pins={pins} />}
+            {pins?.length > 0 ? <MasonryGrid pins={pins} />
+            :<div className='flex font-bold text-gray-700 tex-2xl justify-center items-center'>Opps No Quotes yet, create one! </div>
+            }
+
             </div>
         </div>
     );

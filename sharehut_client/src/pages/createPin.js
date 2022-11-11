@@ -30,7 +30,7 @@ const CreatePin = () => {
     const categories = [
         { name:"Philosophy"},
         {name:'Life'},
-        {name:"Self Development"},
+        {name:"self-development"},
         {name:"Coding"},
         {name:"Art"},
         {name:"Movies"},
