@@ -4,11 +4,13 @@ import {client, urlFor} from '../sanity';
 import {FcDownload} from 'react-icons/fc';
 import {v4 as uuidv4} from 'uuid';
 import {AiFillDelete} from 'react-icons/ai';
+import { unsavePinQ } from '../utils/data';
 
 const Pin = ({pin:{_id, image, postedBy, destination,save}}) => {
     const navigate = useNavigate();
     const [postHovered, setPostHovered] = useState(false);
     const {user} = useOutletContext();
+
 
     const alreadySaved = !!(save?.filter(item => item.postedBy._id === user._id))?.length
 
@@ -32,7 +34,19 @@ const Pin = ({pin:{_id, image, postedBy, destination,save}}) => {
             })
         }
     }
-
+    const unsavePin = e => {
+        e.stopPropagation()
+        if(alreadySaved){
+        const pintoUnsave = ['save[0]',`save[userId=="${user._id}"]`]
+           client
+           .patch(_id)
+           .unset(pintoUnsave)
+           .commit()
+           .then(()=> {
+            window.location.reload();
+        })
+        }
+    }
     const deletePin = e => {
         e.stopPropagation()
         client
@@ -68,7 +82,7 @@ const Pin = ({pin:{_id, image, postedBy, destination,save}}) => {
             </div>
             <div className='flex'>
             {alreadySaved? 
-                <button type="button" disabled className='cursor-pointer  bg-orange-500 opacity-70 hover:opacity-100 text-white text-sm px-3 py-0  rounded-3xl hover:shadow-md outlined-none'> {save?.length} Saved</button>
+                <button type="button" onClick={e => unsavePin(e)} className='cursor-pointer  bg-red-500 opacity-70 hover:opacity-100 text-white text-sm px-3 py-0  rounded-3xl hover:shadow-md outlined-none'> {save?.length} UnSave</button>
                 :
                 <button type="button" onClick={e => savePin(e)} className='cursor-pointer bg-orange-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-0  text-base rounded-3xl hover:shadow-md outlined-none'>Save</button>
  }
