@@ -40,9 +40,10 @@ const Search = () => {
             <Header/>
         </div>
         <div className='h-full'>
+         
         {loading&&(<Spinner message="Searching pins..." />)}
         {pins?.length > 0 && <MasonryGrid pins={pins} /> }
-        {pins === 0 && searchTerm !== '' & !loading && (
+        {pins?.length === 0 && searchTerm !== '' && !loading && (
             <div className='flex font-bold text-gray-700 tex-2xl justify-center items-center'>
             No Pins
             </div>
