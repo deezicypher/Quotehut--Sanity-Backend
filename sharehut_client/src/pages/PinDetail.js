@@ -7,6 +7,8 @@ import { Link, useOutletContext, useParams } from 'react-router-dom';
 import { pinQuery } from '../utils/data';
 import { FcDownload } from 'react-icons/fc';
 import MasonryGrid  from '../components/Masonry';
+import logo from '../assets/img/apelogo.png'
+import {AiFillDelete} from 'react-icons/ai';
 
 
 const PinDetail = () => {
@@ -53,6 +55,15 @@ const PinDetail = () => {
         }
     }
 
+    const deletePin = e => {
+        e.stopPropagation()
+        client
+           .delete(id)
+           .then(()=> {
+                window.location.reload();
+            })
+        }
+
     useEffect(() => {
         fetchDetails();
     },[])
@@ -66,16 +77,23 @@ const PinDetail = () => {
             <Header/>
         </div>
         <div className='flex xl:flex-row flex-col m-auto bg-white' style={{maxWidth: '1500px', borderRadius: '32px'}}>
-            <div className='flex justify-center items-center md:flex-start flex-initial'>
+            <div className='relative flex justify-center items-center  w-full h-full  md:flex-start flex-initial'>
                 <img 
                 src={details.image && urlFor(details.image).url()} 
                 alt=''
-                className='rounded-t-3xl p-3 rounded-b-lg'
+                className='rounded-t-3xl p-3 rounded-b-lg w-full h-full'
                 />
+                 <div className='flex flex-col absolute rounded-t-3xl  rounded-b-lg  justify-center items-center top-2 left-2 bottom-2 right-2 bg-quotes'>
+                        <h1 className="text-gray-100 uppercase  p-10 mt-5 text-center text-bold text-4xl items-center">{details.quote}</h1>
+                        <div className='p-2 flex flex-col -mb-10 justify-center items-center'>
+                        <img src={logo} alt="" width='30px' />
+                        <small className='text-white text-xs'>QuoteHut</small>
+                    </div>
+                        </div>
                
             </div>
         <div className='w-full p-5 flex-1 xl:min-w-620'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center  gap-2'>
             <a 
            href={`${details.image?.asset?.url}?dl=`}
            download
@@ -84,6 +102,15 @@ const PinDetail = () => {
            >
              <FcDownload/>
            </a>
+         
+    {details?.postedBy?._id === user._id ?
+ <button onClick={e => deletePin(e)} className='flex items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
+<AiFillDelete/>
+    </button>
+:
+<></>
+ } 
+       
         </div>
         <div>
                     <h1 className='text-2xl font-bold break-words mt-3 capitalize'>
