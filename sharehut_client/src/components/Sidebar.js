@@ -2,17 +2,29 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/img/apelogo.png';
 import {HiHomeModern} from 'react-icons/hi2';
+import life from '../assets/img/life.jpeg'; 
+import art from '../assets/img/art.jpeg'; 
+import coding from '../assets/img/coding.jpeg'; 
+import movies from '../assets/img/movies.jpeg'; 
+import philosophy from '../assets/img/philosophy.jpeg'; 
+import self from '../assets/img/self.jpeg';
+
+
 
 const notActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize'
 const activeStyle = 'flex items-center px-5 font-extrabold border-r-2 border-black gap-3 text-gray-500  transition-all duration-200 ease-in-out capitalize'
 const Sidebar = ({user, closeToggle}) => {
 
     const categories = [
-        { name:"Philosophy"},
-        {name:"Self Development"},
-        {name:"Coding"},
-        {name:"Art"},
-        {name:"Movies"},
+        { name:"Philosophy",
+        image: philosophy
+    },
+        {name:'Life', image: life},
+        {name:"Self Development", image: self},
+        {name:"Coding", image: coding},
+        {name:"Art", image: art},
+        {name:"Movies", image: movies},
+        {name:"Others", image: life},
     ]
     
     const handleCloseSidebar = () => {
@@ -49,7 +61,11 @@ const Sidebar = ({user, closeToggle}) => {
                         to={`/categories/${category.name}`}
                         onClick={handleCloseSidebar}
                         className={({isActive}) => isActive ? activeStyle : notActiveStyle}
-                        key={category.name}>{category.name}</NavLink>
+                        key={category.name}>
+                            <img src={category.image} alt="" className='rounded-full h-5 w-5 shadow-sm'/>
+                            {category.name}
+                            
+                            </NavLink>
                     ))}
             </div>
           

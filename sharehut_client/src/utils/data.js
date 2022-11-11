@@ -166,3 +166,5 @@ export const userCreatedPinsQuery = (userId) => {
     }`;
     return query;
   };
+
+  

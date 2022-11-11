@@ -29,10 +29,12 @@ const CreatePin = () => {
     const user = useOutletContext();
     const categories = [
         { name:"Philosophy"},
+        {name:'Life'},
         {name:"Self Development"},
         {name:"Coding"},
         {name:"Art"},
         {name:"Movies"},
+        {name:"Others"},
     ]
     const uploadImage = (e) => {
         const {type, name} = e.target.files[0];
