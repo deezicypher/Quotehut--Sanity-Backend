@@ -13,7 +13,7 @@ import { toJpeg } from 'html-to-image';
 import {BsFillBookmarkPlusFill} from 'react-icons/bs';
 import {BsFillBookmarkDashFill} from 'react-icons/bs';
 import {AiFillTags} from 'react-icons/ai';
-
+import {FcInfo} from 'react-icons/fc';
 
 
 const PinDetail = () => {
@@ -175,13 +175,13 @@ const PinDetail = () => {
                 className='rounded-lg w-full'
                 />
                  <div className='flex flex-col absolute rounded-lg w-full  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
-                       <div className='py-20 mt-10'>
-                        <h1 className="text-gray-100 uppercase  p-10  text-center text-bold text-3xl items-center">{details.quote}</h1>
-                        <div className='p-2 flex flex-col  justify-center items-center'>
-                        <img src={logo} alt="" width='30px' />
-                        <small className='text-white text-xs'>QuoteHut</small>
+                      
+                        <h1 className="text-gray-100 uppercase mt-5 p-10  text-center text-bold text-3xl items-center">{details.quote}</h1>
+                        <div className='absolute opacity-70 bottom-0 flex flex-col justify-center items-center'>
+                        <img src={logo} alt="" width='40px' />
+                        <small className='text-white text-xs  pb-3 '>QuoteHut</small>
                         </div>
-                    </div>
+                  
                 </div>
                
             </div>
@@ -219,7 +219,9 @@ const PinDetail = () => {
                         {details.title}
                     </h1>
                     <hr class="my-3 w-64 h-1 bg-gray-100 rounded border-0 dark:bg-gray-700" />
-                    <p className='flex gap-2 mt-2 text-xs'><AiFillTags  /> {details.about}</p>
+                  
+                    <p className='flex gap-2 mt-2 text-base'><AiFillTags  /> {details.category}</p>
+                    <p className='flex gap-2 mt-2 text-xs'><FcInfo className='mt-1'  /> {details.about}</p>
                     <h1 className='text-4xl text-gray-600 break-words mt-3 capitalize'>
                         "{details.quote}"
                     </h1>
@@ -284,11 +286,11 @@ const PinDetail = () => {
  </div>
 </div>
         </div>
-   
+        <hr class="my-10 w-full h-1 bg-gray-100 rounded border-0 dark:bg-gray-500" />
     {
         similarpins?.length > 0 && (
             <>
-        <h2 className='font-bold text-2xl mt-2'>Similar Quotes</h2>
+        <h2 className='font-bold text-xl text-gray-700 mt-2'>Similar Quotes</h2>
         <MasonryGrid pins={similarpins} />
         </>
         )

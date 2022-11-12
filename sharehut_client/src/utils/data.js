@@ -66,6 +66,7 @@ export const pinQuery = (id) => {
             _id,
             title,
             about,
+            category,
             quote,
         postedBy->{
         _id,
