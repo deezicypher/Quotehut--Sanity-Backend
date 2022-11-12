@@ -56,7 +56,6 @@ const PinDetail = () => {
             setDetails(data[0]);
             if(data[0]){
                 const spquery = similarPin(data[0])
-                console.log(spquery)
                 client.fetch(spquery)
                 .then(data => {
                     //console.log(data)

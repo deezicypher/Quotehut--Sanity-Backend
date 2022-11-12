@@ -22,6 +22,7 @@ const CreatePin = () => {
     const navigate = useNavigate();
 
     const handleChange = e => {
+        console.log(e.target.value)
         setInputs({...inputs, [e.target.name]: e.target.value});
     }
   
@@ -30,7 +31,7 @@ const CreatePin = () => {
     const categories = [
         { name:"Philosophy"},
         {name:'Life'},
-        {name:"self-development"},
+        {name:"Self-development"},
         {name:"Coding"},
         {name:"Art"},
         {name:"Movies"},
@@ -175,7 +176,7 @@ const CreatePin = () => {
                              >
                                 <option value='other' name="category" className='bg-white'>Select Category</option>
                                 {categories.map(category => (
-                                    <option value={category.name} name="category"  className='text-base border-0 capitalize bg-white outline-none'>{category.name}</option>
+                                    <option value={category.name.toLowerCase()} name="category"  className='text-base border-0 capitalize bg-white outline-none'>{category.name}</option>
                                 ))}
                             </select>
                         </div>
