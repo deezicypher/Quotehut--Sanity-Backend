@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import Spinner from '../components/Spinner';
 import {client, urlFor} from '../sanity';
 import { Link, useOutletContext, useParams } from 'react-router-dom';
-import { pinQuery } from '../utils/data';
+import { pinQuery, similarPin } from '../utils/data';
 import { FcDownload } from 'react-icons/fc';
 import MasonryGrid  from '../components/Masonry';
 import logo from '../assets/img/apelogo.png'
@@ -12,7 +12,7 @@ import {AiFillDelete} from 'react-icons/ai';
 import { toJpeg } from 'html-to-image';
 import {BsFillBookmarkPlusFill} from 'react-icons/bs';
 import {BsFillBookmarkDashFill} from 'react-icons/bs';
-
+import {AiFillTags} from 'react-icons/ai';
 
 
 
@@ -33,7 +33,9 @@ const PinDetail = () => {
         .then(data => {
             setDetails(data[0]);
             if(data[0]){
-                //query = similarpinquery()
+                const spquery = similarPin(data[0])
+                client.fetch(spquery)
+                .then(data => setSimilarpins(data));
             }
         })
     }
@@ -201,20 +203,25 @@ const PinDetail = () => {
                     <h1 className='text-2xl font-bold break-words mt-3 capitalize'>
                         {details.title}
                     </h1>
-                    <p className='mt-2 text-xs'>{details.about}</p>
+                    <hr class="my-3 w-64 h-1 bg-gray-100 rounded border-0 dark:bg-gray-700" />
+                    <p className='flex gap-2 mt-2 text-xs'><AiFillTags  /> {details.about}</p>
                     <h1 className='text-4xl text-gray-600 break-words mt-3 capitalize'>
                         "{details.quote}"
                     </h1>
+
                 </div>
   
+                
                 <Link 
         to={`profile/${details.postedBy._id}`}
         className='flex gap-2 mt-4 items-center'
          >
             <img src={details.postedBy.image} 
-            className='w-8 h-8 rounded-full object-contain' alt=""/>
+            className='w-6 h-6 rounded-full object-contain' alt=""/>
             <p className='font semibold capitalize text-sm'>{details.postedBy?.userName}</p>
          </Link>
+
+         <hr class="my-3 w-full h-1 bg-gray-100 rounded border-0 dark:bg-gray-700" />
          <h2 className='mt-9 text-base  text-gray-700'>Comments</h2>
          <div className='max-h-370 overflow-y-auto'>
             {details.comments?.map((comment, i) => (
