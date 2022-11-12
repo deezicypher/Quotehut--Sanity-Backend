@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect,useCallback, useState,useRef} from 'react';
 import Header from '../components/Header';
 import {v4 as uuidv4} from 'uuid';
 import Spinner from '../components/Spinner';
@@ -9,6 +9,7 @@ import { FcDownload } from 'react-icons/fc';
 import MasonryGrid  from '../components/Masonry';
 import logo from '../assets/img/apelogo.png'
 import {AiFillDelete} from 'react-icons/ai';
+import { toJpeg } from 'html-to-image';
 
 
 const PinDetail = () => {
@@ -18,6 +19,7 @@ const PinDetail = () => {
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
     const {user} = useOutletContext();
+    const ref = useRef();
 
 
     const fetchDetails = () => {
@@ -64,6 +66,40 @@ const PinDetail = () => {
             })
         }
 
+        const onButtonClick = useCallback(() => {
+            if (ref.current === null) {
+              return
+            }
+        
+            toJpeg(ref.current, { quality: 1.0 })
+            .then((dataUrl) => {
+              const link = document.createElement('a')
+              link.download = `${details?.title}.jpeg`
+              link.href = dataUrl
+              link.click()
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          }, [ref])
+
+        const onLoad = () => {
+            if (ref.current === null) {
+              return null
+            }
+            toJpeg(ref.current, { quality: 1.0 })
+              .then((dataUrl) => {
+                //const link = document.createElement('a')
+                //link.download = 'my-image-name.png'
+                //link.href = dataUrl
+                //link.click()
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          }
+    
+
     useEffect(() => {
         fetchDetails();
     },[])
@@ -77,7 +113,7 @@ const PinDetail = () => {
             <Header/>
         </div>
         <div className='flex xl:flex-row flex-col m-auto bg-white' style={{maxWidth: '1500px', borderRadius: '32px'}}>
-            <div className='relative flex justify-center items-center  w-full h-full  md:flex-start flex-initial'>
+            <div ref={ref} className='relative flex justify-center items-center  w-full h-full  md:flex-start flex-initial'>
                 <img 
                 src={details.image && urlFor(details.image).url()} 
                 alt=''
@@ -94,14 +130,13 @@ const PinDetail = () => {
             </div>
         <div className='w-full p-5 flex-1 xl:min-w-620'>
             <div className='flex items-center  gap-2'>
-            <a 
-           href={`${details.image?.asset?.url}?dl=`}
+            <div
            download
-           onClick={e => e.stopPropagation()}
+           onClick={() => onButtonClick()}
            className="bg-gray-100 w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100  hover:shadow-md outline-none  "
            >
              <FcDownload/>
-           </a>
+           </div>
          
     {details?.postedBy?._id === user._id ?
  <button onClick={e => deletePin(e)} className='flex items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
