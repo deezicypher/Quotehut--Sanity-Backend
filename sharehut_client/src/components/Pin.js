@@ -16,6 +16,20 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
     const {user} = useOutletContext();
     const ref = useRef()
     
+    var textstyle = ''
+    if(quote.length > 0){
+        let style = ''
+        if (quote.length < 100){
+            style = 'text-xl px-3'
+        }
+        if (quote.length <= 50) {
+            style = 'text-4xl px-3 md:text-2xl '
+        }
+        else{
+            style = 'text-lg md:text-sm  px-3'
+        }
+        textstyle = style
+    }
     const alreadySaved = !!(save?.filter(item => item.postedBy._id === user._id))?.length
 
     const savePin = e => {
@@ -59,22 +73,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
                 window.location.reload();
             })
         }
-        const onButtonClick = useCallback(() => {
-            if (ref.current === null) {
-              return
-            }
-        
-            toJpeg(ref.current, { quality: 1.0 })
-            .then((dataUrl) => {
-              const link = document.createElement('a')
-              link.download = `${title}.jpeg`
-              link.href = dataUrl
-              link.click()
-            })
-            .catch((err) => {
-              console.log(err)
-            })
-          }, [ref])
+    
   
 
         return (
@@ -88,9 +87,9 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
                 className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out" >
 
 <img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt=""/>
-<div className='flex flex-col absolute rounded-lg w-full justify-center items-center top-0 left-0 bottom-0 right-0 bg-hQuotes'>
-                       
-                        <h1 className={` text-gray-100 uppercase py-5 px-3 mt-5 text-center text-bold ${quote.length <= 50 ? 'text-4xl' : 'text-xl'  } md:text-base items-center`}>{quote}</h1>
+<div className='flex flex-col justify-center absolute rounded-lg w-full  items-center top-0 left-0 bottom-0 right-0 bg-hQuotes'>
+                       {console.log(quote, textstyle)}
+                        <h1 className={` text-gray-100 uppercase py-5  mt-5 text-center text-bold z-20 ${textstyle}`}>{quote}</h1>
                        {/* <div className=' p-2 flex   flex-col  justify-center items-center'>
                         <img src={logo} alt="" width='20px' />
                         <small className='text-white text-xsm pb-3 '>QuoteHut</small>

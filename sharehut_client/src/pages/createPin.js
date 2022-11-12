@@ -52,7 +52,7 @@ const CreatePin = () => {
     }
 
     const handlePublish = () => {
-        console.log(inputs)
+        
         if(title && image.url && quote && about && category){
             setLoading(true)
             const doc = {
@@ -185,7 +185,7 @@ const CreatePin = () => {
                             type='button'
                             onClick={handlePublish}
                             className='bg-blue-500 hover:bg-blue-600 text-white outline-none rounded-full w-28 p-2 font-bold'
-                            >Publish</button>
+                            >{loading? '....' : 'Publish' }</button>
 
                         </div>
                     </div>
