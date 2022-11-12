@@ -10,24 +10,41 @@ import {BsFillBookmarkDashFill} from 'react-icons/bs';
 import { toJpeg } from 'html-to-image';
 
 
+
 const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
     const navigate = useNavigate();
     const [postHovered, setPostHovered] = useState(false);
     const {user} = useOutletContext();
-    const ref = useRef()
+    const [imgH, setImgH] = useState('');
+    const ref = useRef();
+    const imgElement = useRef();
     
     var textstyle = ''
     if(quote.length > 0){
         let style = ''
         if (quote.length < 100){
-            style = 'text-xl px-3'
+            style = 'text-xl  px-3'
+            if(imgH <= 300){
+                style = 'text-l px-3'
+            }
+            if(imgH >= 400){
+                style = 'text-3xl px-3 md:text-3xl'
+            }
+            
         }
         if (quote.length <= 50) {
             style = 'text-4xl px-3 md:text-2xl '
+            if(imgH <= 240){
+                style = 'text-2xl px-3 md:text-base'
+            }
         }
-        else{
-            style = 'text-lg md:text-sm  px-3'
+        if(quote.length >= 100) {
+            style = 'text-lg md:text-2xl  px-5'
+            if(imgH <= 300){
+                style = 'text-lg px-3'
+            }
         }
+        
         textstyle = style
     }
     const alreadySaved = !!(save?.filter(item => item.postedBy._id === user._id))?.length
@@ -86,9 +103,10 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
                 onClick={() => navigate(`/pin/${_id}`)}
                 className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out" >
 
-<img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt=""/>
+<img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt="" ref={imgElement}
+      onLoad={() => setImgH(imgElement.current.height)}/>
 <div className='flex flex-col justify-center absolute rounded-lg w-full  items-center top-0 left-0 bottom-0 right-0 bg-hQuotes'>
-                      
+                      {console.log(quote,quote.length, imgH, textstyle)}
                         <h1 className={` text-gray-100 uppercase py-5  mt-5 text-center text-bold z-20 ${textstyle}`}>{quote}</h1>
                        {/* <div className=' p-2 flex   flex-col  justify-center items-center'>
                         <img src={logo} alt="" width='20px' />

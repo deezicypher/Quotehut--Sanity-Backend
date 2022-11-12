@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import {v4 as uuidv4} from 'uuid';
 import Spinner from '../components/Spinner';
 import {client, urlFor} from '../sanity';
-import { Link, useOutletContext, useParams } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { pinQuery, similarPin } from '../utils/data';
 import { HiDocumentDownload } from 'react-icons/hi';
 import MasonryGrid  from '../components/Masonry';
@@ -22,9 +22,11 @@ const PinDetail = () => {
     const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
+    const [imgH, setImgH] = useState('');
     const {user} = useOutletContext();
     const ref = useRef();
-
+    const imgElement = useRef();
+    const navigate = useNavigate()
     const alreadySaved = !!(details?.save?.filter(item => item.postedBy._id === user._id))?.length
 
 
@@ -38,9 +40,16 @@ const PinDetail = () => {
     
         if (quote.length < 100){
             style = 'text-2xl md:text-3xl px-5'
+            if(imgH >= 450){
+                style = 'text-3xl px-5 md:text-4xl'
+            }
         }
         if (quote.length <= 50) {
             style = 'text-4xl px-5 md:text-4xl '
+            if(imgH <= 240){
+                style = 'text-2xl px-3 md:text-base'
+            }
+            
         }
         if(quote.length >= 100) {
             style = 'text-lg md:text-2xl  px-5'
@@ -130,7 +139,7 @@ const PinDetail = () => {
         client
            .delete(id)
            .then(()=> {
-            fetchDetails()
+            navigate('/')
             })
         }
 
@@ -188,7 +197,7 @@ const PinDetail = () => {
     return (
         <>
         <div className='flex-1 px-2 md:px-5'>
-            {console.log(details.quote.length, textstyle)}
+            {console.log(details.quote.length, textstyle, imgH)}
         <div className='bg-gray-50'>
             <Header/>
         </div>
@@ -198,7 +207,9 @@ const PinDetail = () => {
                 src={details.image && urlFor(details.image).url()} 
                 alt=''
                 className='rounded-lg w-full'
-                />
+                ref={imgElement}
+                onLoad={() => setImgH(imgElement.current.height)}
+               />
                  <div className='flex flex-col absolute rounded-lg w-full  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
                       
                         <h1 className={`text-gray-100 uppercase mt-5 p-10  text-center text-bold ${textstyle} items-center z-10`}>{details.quote}</h1>
