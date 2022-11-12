@@ -81,9 +81,9 @@ const PinDetail = () => {
                 <img 
                 src={details.image && urlFor(details.image).url()} 
                 alt=''
-                className='rounded-t-3xl p-3 rounded-b-lg w-full h-full'
+                className='rounded-lg w-full'
                 />
-                 <div className='flex flex-col absolute rounded-t-3xl  rounded-b-lg  justify-center items-center top-2 left-2 bottom-2 right-2 bg-quotes'>
+                 <div className='flex flex-col absolute rounded-lg w-full  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
                         <h1 className="text-gray-100 uppercase  p-10 mt-5 text-center text-bold text-4xl items-center">{details.quote}</h1>
                         <div className='p-2 flex flex-col -mb-10 justify-center items-center'>
                         <img src={logo} alt="" width='30px' />
