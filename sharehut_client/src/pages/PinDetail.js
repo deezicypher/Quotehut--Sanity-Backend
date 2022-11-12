@@ -5,7 +5,7 @@ import Spinner from '../components/Spinner';
 import {client, urlFor} from '../sanity';
 import { Link, useOutletContext, useParams } from 'react-router-dom';
 import { pinQuery, similarPin } from '../utils/data';
-import { FcDownload } from 'react-icons/fc';
+import { HiDocumentDownload } from 'react-icons/hi';
 import MasonryGrid  from '../components/Masonry';
 import logo from '../assets/img/apelogo.png'
 import {AiFillDelete} from 'react-icons/ai';
@@ -19,7 +19,7 @@ import {AiFillTags} from 'react-icons/ai';
 const PinDetail = () => {
     const [details, setDetails] = useState();
     const [similarpins, setSimilarpins] = useState(null);
-    const [comment, setComment] = useState();
+    const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
     const {user} = useOutletContext();
@@ -48,7 +48,7 @@ const PinDetail = () => {
             .insert('after','comments[-1]',[
                 {
                     comment,
-                    _key: uuidv4,
+                    _key: uuidv4(),
                     postedBy:{
                         _type:'postedBy',
                         _ref:user._id
@@ -63,6 +63,8 @@ const PinDetail = () => {
             })
         }
     }
+
+   
 
     const savePin = e => {
         e.stopPropagation()
@@ -98,13 +100,25 @@ const PinDetail = () => {
         }
     }
 
-    const deletePin = e => {
+    const deletePin = (e) => {
         e.stopPropagation()
         client
            .delete(id)
            .then(()=> {
-                window.location.reload();
+            fetchDetails()
             })
+        }
+
+    const deleteComment = (e,cid) => {
+            e.stopPropagation()
+            const commentToRemove = ['comments[0]', `comments[_key=="${cid}"]`]
+            client
+               .patch(id)
+               .unset(commentToRemove)
+               .commit()
+               .then(()=> {
+                   fetchDetails()
+                }).catch(err => console.log(err))
         }
 
         const onButtonClick = useCallback(() => {
@@ -174,17 +188,16 @@ const PinDetail = () => {
             <div
            download
            onClick={() => onButtonClick()}
-           className="bg-gray-100 w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100  hover:shadow-md outline-none  "
+           className="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100  hover:shadow-md outline-none  "
            >
-             <FcDownload/>
+             <HiDocumentDownload className='h-6 w-6' color='teal' />
            </div>
          
-    {details?.postedBy?._id === user._id ?
+    {details?.postedBy?._id === user._id &&
  <button onClick={e => deletePin(e)} className='flex items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
-<AiFillDelete/>
+<AiFillDelete className='h-6 w-6' />
     </button>
-:
-<></>
+
  } 
         {alreadySaved? 
                          <div className='flex  justify-center gap-1 items-center'>
@@ -225,13 +238,22 @@ const PinDetail = () => {
          <h2 className='mt-9 text-base  text-gray-700'>Comments</h2>
          <div className='max-h-370 overflow-y-auto'>
             {details.comments?.map((comment, i) => (
-                <div className='flex gap-2 mt-5 items-center bg-white rounded-lg' key={i}>
-                    <img src={comment.postedBy.image} alt="" className='h-8 w-8 rounded-full cursor-pointer'/>
+                <div className='flex justify-between'>
+                <div className='flex gap-2 mt-5  bg-white rounded-lg' key={i}>
+                    <img src={comment.postedBy.image} alt="" className='h-7 w-7 rounded-full cursor-pointer'/>
                     <div className='flex flex-col'>
                         <p className='font-bold text-gray-600'>{comment.postedBy.userName}</p>
                         <p>{comment.comment}</p>
+                        <hr class="my-3 w-full h-1 bg-gray-100 rounded border-0 dark:bg-gray-700" />
+                </div>       
                 </div>
-                </div>
+                
+                             {comment?.postedBy?._id === user._id &&
+                                <div onClick={e => deleteComment(e,comment._key)} className='flex flex-shrink-0 items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
+                               <AiFillDelete />
+                                   </div>
+                                } 
+                                </div>
             ))}
             </div>
            
