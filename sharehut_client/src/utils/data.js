@@ -3,7 +3,7 @@ export const userQuery = (userId) => {
     return query;
 }
 export const searchQuery = (searchTerm) => {
-    const query = `*[_type == 'pin' && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*']{
+    const query = `*[_type == 'pin' && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*'] | order(_createdAt desc) {
         image{
             asset -> {
                 url
@@ -29,6 +29,33 @@ export const searchQuery = (searchTerm) => {
     return query;
 }
 
+export const categoryQuery = (cat) => {
+    const query = `*[_type == "pin" && category match '${cat}*']| order(_createdAt desc){
+      image{
+          asset -> {
+              url
+          }
+      },
+      _id,
+      about,
+      title,
+      quote,
+      postedBy -> {
+          _id,
+          userName,
+          image
+      },
+      save[]{
+          _key,
+          postedBy -> {
+              _id,
+              userName,
+              image
+          }
+      }
+  }`
+    return query;
+}
 export const feedQuery = `*[_type == 'pin'] | order(_createdAt desc){
     image{
         asset -> {
