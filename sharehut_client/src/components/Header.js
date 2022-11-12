@@ -30,7 +30,7 @@ const Header = () => {
     
             </Link> 
             <Link 
-            to='create'
+            to='/create'
             className="hidden md:block"><BsFillPenFill fontSize={24} /></Link>
         </div>
      

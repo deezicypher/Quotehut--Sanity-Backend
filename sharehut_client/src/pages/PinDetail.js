@@ -175,10 +175,12 @@ const PinDetail = () => {
                 className='rounded-lg w-full'
                 />
                  <div className='flex flex-col absolute rounded-lg w-full  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
-                        <h1 className="text-gray-100 uppercase  p-10 mt-5 text-center text-bold text-4xl items-center">{details.quote}</h1>
-                        <div className='p-2 flex flex-col -mb-10 justify-center items-center'>
+                       <div className='py-20 mt-10'>
+                        <h1 className="text-gray-100 uppercase  p-10  text-center text-bold text-3xl items-center">{details.quote}</h1>
+                        <div className='p-2 flex flex-col  justify-center items-center'>
                         <img src={logo} alt="" width='30px' />
                         <small className='text-white text-xs'>QuoteHut</small>
+                        </div>
                     </div>
                 </div>
                
