@@ -10,6 +10,10 @@ import MasonryGrid  from '../components/Masonry';
 import logo from '../assets/img/apelogo.png'
 import {AiFillDelete} from 'react-icons/ai';
 import { toJpeg } from 'html-to-image';
+import {BsFillBookmarkPlusFill} from 'react-icons/bs';
+import {BsFillBookmarkDashFill} from 'react-icons/bs';
+
+
 
 
 const PinDetail = () => {
@@ -21,6 +25,7 @@ const PinDetail = () => {
     const {user} = useOutletContext();
     const ref = useRef();
 
+    const alreadySaved = !!(details?.save?.filter(item => item.postedBy._id === user._id))?.length
 
     const fetchDetails = () => {
        const  query = pinQuery(id)
@@ -54,6 +59,40 @@ const PinDetail = () => {
                 setComment('')
                 setLoading(false)
             })
+        }
+    }
+
+    const savePin = e => {
+        e.stopPropagation()
+        if(!alreadySaved){
+            client
+            .patch(id)
+            .setIfMissing({save:[]})
+            .insert('after', 'save[-1]',[{
+                _key: uuidv4(),
+                userId: user._id,
+                postedBy:{
+                    _type:'postedBy',
+                    _ref: user._id,
+                }
+            }])
+            .commit()
+            .then(()=> {
+                fetchDetails()
+            })
+        }
+    }
+    const unsavePin = e => {
+        e.stopPropagation()
+        if(alreadySaved){
+        const pintoUnsave = ['save[0]',`save[userId=="${user._id}"]`]
+           client
+           .patch(id)
+           .unset(pintoUnsave)
+           .commit()
+           .then(()=> {
+            fetchDetails()
+        })
         }
     }
 
@@ -125,11 +164,11 @@ const PinDetail = () => {
                         <img src={logo} alt="" width='30px' />
                         <small className='text-white text-xs'>QuoteHut</small>
                     </div>
-                        </div>
+                </div>
                
             </div>
         <div className='w-full p-5 flex-1 xl:min-w-620'>
-            <div className='flex items-center  gap-2'>
+            <div className='flex items-center  gap-2 mb-5'>
             <div
            download
            onClick={() => onButtonClick()}
@@ -145,6 +184,17 @@ const PinDetail = () => {
 :
 <></>
  } 
+        {alreadySaved? 
+                         <div className='flex  justify-center gap-1 items-center'>
+                         <div className='text-gray-700 text-sm'>{details?.save?.length}</div>
+                          <BsFillBookmarkDashFill onClick={e => unsavePin(e)}  className='cursor-pointer h-5 w-5 text-red-500'/>
+          </div>
+          :
+                <div className='flex  justify-center gap-1 items-center'>
+                <div className='text-gray-700 text-sm'>{details?.save?.length}</div>
+                 <BsFillBookmarkPlusFill onClick={e => savePin(e)}  className='cursor-pointer h-5 w-5 text-orange-500'/>
+ </div>
+ }
        
         </div>
         <div>

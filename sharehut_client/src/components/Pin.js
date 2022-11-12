@@ -65,7 +65,6 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         return (
     
     <div className='mt-2 p-2'>
- 
         <div 
                 
                 onMouseEnter={() => setPostHovered(true)}
