@@ -14,6 +14,7 @@ import {BsFillBookmarkPlusFill} from 'react-icons/bs';
 import {BsFillBookmarkDashFill} from 'react-icons/bs';
 import {AiFillTags} from 'react-icons/ai';
 import {FcInfo} from 'react-icons/fc';
+import Modal from '../components/Modal';
 
 
 const PinDetail = () => {
@@ -26,7 +27,10 @@ const PinDetail = () => {
     const {user} = useOutletContext();
     const ref = useRef();
     const imgElement = useRef();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [pinmodal, showPinModal] = useState(false);
+    const [commentmodal, showCommentModal] = useState(false);
+    const [cid, setCid] = useState('');
     const alreadySaved = !!(details?.save?.filter(item => item.postedBy._id === user._id))?.length
 
 
@@ -134,17 +138,17 @@ const PinDetail = () => {
         }
     }
 
-    const deletePin = (e) => {
-        e.stopPropagation()
+    const deletePin = () => {
         client
            .delete(id)
            .then(()=> {
+            showPinModal(false);
             navigate('/')
             })
         }
 
-    const deleteComment = (e,cid) => {
-            e.stopPropagation()
+    const deleteComment = () => {
+            
             const commentToRemove = ['comments[0]', `comments[_key=="${cid}"]`]
             client
                .patch(id)
@@ -152,6 +156,7 @@ const PinDetail = () => {
                .commit()
                .then(()=> {
                    fetchDetails()
+                   showCommentModal(false);
                 }).catch(err => console.log(err))
         }
 
@@ -196,6 +201,12 @@ const PinDetail = () => {
     if(!details) return <Spinner message="fetching pin..."/>
     return (
         <>
+        {pinmodal && (
+        <Modal showPinModal={showPinModal} Delete={deletePin} />
+        )}
+         {commentmodal && (
+        <Modal showPinModal={showCommentModal} Delete={deleteComment} cid={cid} />
+        )}
         <div className='flex-1 px-2 md:px-5'>
             {console.log(details.quote.length, textstyle, imgH)}
         <div className='bg-gray-50'>
@@ -232,7 +243,8 @@ const PinDetail = () => {
            </div>
          
     {details?.postedBy?._id === user._id &&
- <button onClick={e => deletePin(e)} className='flex items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
+ <button onClick={e => { e.stopPropagation()
+  showPinModal(true)}} className='flex items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
 <AiFillDelete className='h-6 w-6' />
     </button>
 
@@ -289,7 +301,10 @@ const PinDetail = () => {
                 </div>
                 
                              {comment?.postedBy?._id === user._id &&
-                                <div onClick={e => deleteComment(e,comment._key)} className='flex flex-shrink-0 items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
+                                <div onClick={e => {
+                                    setCid(comment._key)
+                                    showCommentModal(true)
+                                    }} className='flex flex-shrink-0 items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-9 h-9  text-base hover:shadow-md outlined-none'>
                                <AiFillDelete />
                                    </div>
                                 } 
@@ -332,6 +347,7 @@ const PinDetail = () => {
         </>
         )
     }
+    
      </div>
     </>
     );
