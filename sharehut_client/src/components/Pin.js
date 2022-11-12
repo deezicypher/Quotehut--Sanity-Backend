@@ -88,7 +88,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
 
 <img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt=""/>
 <div className='flex flex-col justify-center absolute rounded-lg w-full  items-center top-0 left-0 bottom-0 right-0 bg-hQuotes'>
-                       {console.log(quote, textstyle)}
+                      
                         <h1 className={` text-gray-100 uppercase py-5  mt-5 text-center text-bold z-20 ${textstyle}`}>{quote}</h1>
                        {/* <div className=' p-2 flex   flex-col  justify-center items-center'>
                         <img src={logo} alt="" width='20px' />

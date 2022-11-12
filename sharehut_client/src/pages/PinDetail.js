@@ -27,15 +27,41 @@ const PinDetail = () => {
 
     const alreadySaved = !!(details?.save?.filter(item => item.postedBy._id === user._id))?.length
 
+
+      
+    var textstyle = ''
+    
+    
+    if(details?.quote.length > 0){
+        const {quote} = details
+        let style = ''
+    
+        if (quote.length < 100){
+            style = 'text-2xl md:text-3xl px-5'
+        }
+        if (quote.length <= 50) {
+            style = 'text-4xl px-5 md:text-4xl '
+        }
+        if(quote.length >= 100) {
+            style = 'text-lg md:text-2xl  px-5'
+        }
+        textstyle = style
+    }
+
     const fetchDetails = () => {
        const  query = pinQuery(id)
         client.fetch(query)
         .then(data => {
+
             setDetails(data[0]);
             if(data[0]){
                 const spquery = similarPin(data[0])
+                console.log(spquery)
                 client.fetch(spquery)
-                .then(data => setSimilarpins(data));
+                .then(data => {
+                    //console.log(data)
+                    setSimilarpins(data)
+                });
             }
         })
     }
@@ -163,7 +189,7 @@ const PinDetail = () => {
     return (
         <>
         <div className='flex-1 px-2 md:px-5'>
-            
+            {console.log(details.quote.length, textstyle)}
         <div className='bg-gray-50'>
             <Header/>
         </div>
@@ -176,7 +202,7 @@ const PinDetail = () => {
                 />
                  <div className='flex flex-col absolute rounded-lg w-full  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
                       
-                        <h1 className="text-gray-100 uppercase mt-5 p-10  text-center text-bold text-3xl items-center">{details.quote}</h1>
+                        <h1 className={`text-gray-100 uppercase mt-5 p-10  text-center text-bold ${textstyle} items-center z-10`}>{details.quote}</h1>
                         <div className='absolute opacity-70 bottom-0 flex flex-col justify-center items-center'>
                         <img src={logo} alt="" width='40px' />
                         <small className='text-white text-xs  pb-3 '>QuoteHut</small>
@@ -222,7 +248,7 @@ const PinDetail = () => {
                   
                     <p className='flex gap-2 mt-2 text-base'><AiFillTags  /> {details.category}</p>
                     <p className='flex gap-2 mt-2 text-xs'><FcInfo className='mt-1'  /> {details.about}</p>
-                    <h1 className='text-4xl text-gray-600 break-words mt-3 capitalize'>
+                    <h1 className='text-lg md:text-4xl text-gray-600 break-words mt-3 capitalize'>
                         "{details.quote}"
                     </h1>
 
@@ -247,7 +273,7 @@ const PinDetail = () => {
                     <img src={comment.postedBy.image} alt="" className='h-7 w-7 rounded-full cursor-pointer'/>
                     <div className='flex flex-col'>
                         <p className='font-bold text-gray-600'>{comment.postedBy.userName}</p>
-                        <p>{comment.comment}</p>
+                        <p className='text-sm md:text-base text-gray-600'>{comment.comment}</p>
                         <hr class="my-3 w-full h-1 bg-gray-100 rounded border-0 dark:bg-gray-700" />
                 </div>       
                 </div>
@@ -278,11 +304,12 @@ const PinDetail = () => {
          value={comment}
          onChange={e => setComment(e.target.value)}
          />
+         <div className='flex justify-center items-center ml-auto'>
            <button 
                             onClick={addComment}
                             type='button'
-                            className='bg-blue-500 hover:bg-blue-600 text-white outline-none rounded-lg w-20 font-bold'
-                            >{loading? '....' : 'Publish' }</button>
+                            className='bg-blue-500 hover:bg-blue-600 h-7  text-white outline-none rounded-lg w-20 '
+                            >{loading? '....' : 'Publish' }</button></div>
  </div>
 </div>
         </div>
