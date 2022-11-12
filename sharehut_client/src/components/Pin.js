@@ -5,8 +5,12 @@ import {FcDownload} from 'react-icons/fc';
 import {v4 as uuidv4} from 'uuid';
 import {AiFillDelete} from 'react-icons/ai';
 import logo from '../assets/img/apelogo.png';
+import {BsFillBookmarkPlusFill} from 'react-icons/bs';
+import {BsFillBookmarkDashFill} from 'react-icons/bs';
 
-const Pin = ({pin:{_id, image, postedBy,quote, destination,save}}) => {
+
+
+const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
     const navigate = useNavigate();
     const [postHovered, setPostHovered] = useState(false);
     const {user} = useOutletContext();
@@ -55,17 +59,19 @@ const Pin = ({pin:{_id, image, postedBy,quote, destination,save}}) => {
                 window.location.reload();
             })
         }
-        
+    
+  
+
         return (
     
     <div className='mt-2 p-2'>
-     
+ 
         <div 
-        onMouseEnter={() => setPostHovered(true)}
-        onMouseLeave={() => setPostHovered(false)}
-        onClick={() => navigate(`pin/${_id}`)}
-        className=" relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
-        >
+                
+                onMouseEnter={() => setPostHovered(true)}
+                onMouseLeave={() => setPostHovered(false)}
+                onClick={() => navigate(`pin/${_id}`)}
+                className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out" >
 
 <img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt=""/>
 <div className='flex flex-col absolute rounded-lg w-full justify-center items-center top-0 left-0 bottom-0 right-0 bg-hQuotes'>
@@ -78,25 +84,30 @@ const Pin = ({pin:{_id, image, postedBy,quote, destination,save}}) => {
    {postHovered && (
     <div className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-0' style={{height:'100%'}} >
         <div className='flex items-center justify-between'>
-            <div className='flex gap-2'>
-                <a 
-                href={`${image?.asset?.url}?dl=`}
-                download
-                onClick={e => e.stopPropagation()}
-                className="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100 hover:shadow-md outline-none  "
-                >
+           {/* <div className='flex gap-2'>
+                <div
+              download
+              onClick={e => onButtonClick(e)}
+              className="bg-gray-100 w-9 h-9 cursor-pointer rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100  hover:shadow-md outline-none  "
+              >
                     <FcDownload/>
-                </a>
-            </div>
-            <div className='flex'>
+                </div>
+   </div>*/}
+            <div className='flex ml-auto px-1'>
             {alreadySaved? 
-                <button type="button" onClick={e => unsavePin(e)} className='cursor-pointer  bg-red-500 opacity-70 hover:opacity-100 text-white text-sm px-3 py-0  rounded-3xl hover:shadow-md outlined-none'> {save?.length} UnSave</button>
-                :
-                <button type="button" onClick={e => savePin(e)} className='cursor-pointer bg-orange-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-0  text-base rounded-3xl hover:shadow-md outlined-none'>Save</button>
+                         <div className='flex  justify-center gap-1 items-center'>
+                         <div className='text-white text-sm'>{save?.length}</div>
+                          <BsFillBookmarkDashFill onClick={e => unsavePin(e)}  className='cursor-pointer h-5 w-5 text-red-500'/>
+          </div>
+          :
+                <div className='flex  justify-center gap-1 items-center'>
+                <div className='text-white text-sm'>{save?.length}</div>
+                 <BsFillBookmarkPlusFill onClick={e => savePin(e)}  className='cursor-pointer h-5 w-5 text-orange-500'/>
+ </div>
  }
  </div> 
             </div>
-            <div className='flex justify-between items-end gap-2 w-full'>
+          {/*  <div className='flex justify-between items-end gap-2 w-full'>
     {postedBy?._id === user._id ?
  <button onClick={e => deletePin(e)} className='flex items-center justify-center bg-white opacity-70 hover:opacity-100 text-red-600 font-bold rounded-full w-6 h-6  text-base hover:shadow-md outlined-none'>
 <AiFillDelete/>
@@ -104,7 +115,7 @@ const Pin = ({pin:{_id, image, postedBy,quote, destination,save}}) => {
 :
 <></>
  } 
-        </div>
+</div>*/}
         </div>
    )}
         </div>

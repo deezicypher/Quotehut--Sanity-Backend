@@ -37,6 +37,7 @@ export const feedQuery = `*[_type == 'pin'] | order(_createdAt desc){
     },
     _id,
     about,
+    title,
     quote,
     postedBy -> {
         _id,
