@@ -4,9 +4,9 @@ import {client, urlFor} from '../sanity';
 import {FcDownload} from 'react-icons/fc';
 import {v4 as uuidv4} from 'uuid';
 import {AiFillDelete} from 'react-icons/ai';
-import { unsavePinQ } from '../utils/data';
+import logo from '../assets/img/apelogo.png';
 
-const Pin = ({pin:{_id, image, postedBy, destination,save}}) => {
+const Pin = ({pin:{_id, image, postedBy,quote, destination,save}}) => {
     const navigate = useNavigate();
     const [postHovered, setPostHovered] = useState(false);
     const {user} = useOutletContext();
@@ -59,6 +59,7 @@ const Pin = ({pin:{_id, image, postedBy, destination,save}}) => {
         return (
     
     <div className='mt-2 p-2'>
+     
         <div 
         onMouseEnter={() => setPostHovered(true)}
         onMouseLeave={() => setPostHovered(false)}
@@ -67,6 +68,13 @@ const Pin = ({pin:{_id, image, postedBy, destination,save}}) => {
         >
 
 <img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt=""/>
+<div className='flex flex-col absolute rounded-lg w-full justify-center items-center top-0 left-0 bottom-0 right-0 bg-hQuotes'>
+                        <h1 className="text-gray-100 uppercase  py-5 px-3 mt-5 text-center text-bold text-4xl md:text-base items-center">{quote}</h1>
+                        <div className='p-2 flex  flex-shrink-1 flex-col -mb-10 justify-center items-center'>
+                        <img src={logo} alt="" width='20px' />
+                        <small className='text-white text-xsm pb-3 '>QuoteHut</small>
+                    </div>
+                        </div>
    {postHovered && (
     <div className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-0' style={{height:'100%'}} >
         <div className='flex items-center justify-between'>
