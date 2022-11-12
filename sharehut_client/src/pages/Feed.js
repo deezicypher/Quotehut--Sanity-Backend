@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { client } from '../sanity';
-import { feedQuery, searchQuery } from '../utils/data';
+import { feedQuery, categoryQuery} from '../utils/data';
 import Spinner from '../components/Spinner';
 import {Header } from '../components/Index';
 import MasonryGrid from '../components/Masonry';
@@ -18,7 +18,8 @@ const Feed = () => {
     useEffect(()=> {
         setLoading(true)
         if(id){
-            const query = searchQuery(id)
+            
+            const query = categoryQuery(id)
             client.fetch(query).then(data => {
                 
                 setPins(data)
