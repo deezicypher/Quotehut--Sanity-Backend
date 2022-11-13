@@ -17,6 +17,7 @@ import {FcInfo} from 'react-icons/fc';
 import Modal from '../components/Modal';
 
 
+
 const PinDetail = () => {
     const [details, setDetails] = useState();
     const [similarpins, setSimilarpins] = useState(null);

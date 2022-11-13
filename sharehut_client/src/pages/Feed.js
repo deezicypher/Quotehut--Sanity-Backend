@@ -33,7 +33,7 @@ const Feed = () => {
             })
         }
     },[id])
-    if(loading) return <Spinner message="we are adding new details to your feed" />
+    if(loading || !pins) return <Spinner message="we are adding new details to your feed" />
     
 
     return (

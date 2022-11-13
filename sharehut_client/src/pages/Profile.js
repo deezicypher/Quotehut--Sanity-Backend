@@ -7,7 +7,7 @@ import bg from '../assets/img/bg.jpg';
 import { googleLogout } from '@react-oauth/google';
 import {AiOutlineLogout} from 'react-icons/ai'
 import MasonryGrid  from '../components/Masonry';
-
+import moment from 'moment';
 
 const Profile = () => {
     const [user, setUser] = useState();
@@ -69,7 +69,7 @@ const Profile = () => {
                         <h1 className='font-bold text-2xl text-gray-700 text-center mt-3'> 
                         {user.userName}
                         </h1>
-
+                            <p className='text-base text-gray-700'> <small>Joined : </small>{moment(user._createdAt).format("MMMM Do YYYY")}</p>
                         <div className='absolute top-0 z-1 right-0 p-2'>
                             {user._id === id && (
                                <div className='absolute top-0 z-1 right-0 p-2'>
