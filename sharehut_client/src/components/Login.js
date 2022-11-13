@@ -1,6 +1,6 @@
 import React from 'react';
 import bgimage from '../assets/img/share-bg.jpeg';
-import logo from '../assets/img/apelogo.png';
+import logo from '../assets/img/quotelogo.png';
 import { useGoogleLogin} from '@react-oauth/google';
 import axios from 'axios';
 import { client } from '../sanity';
@@ -41,8 +41,9 @@ const Login = () => {
             <div className='relative w-full h-full'>
                 <img src={bgimage} alt="" className='w-full h-full object-cover'/>
                 <div className='absolute flex flex-col justify-center items-center top-0 left-0 bottom-0 right-0 bg-blackOverlay'>
-                    <div className='p-5'>
+                    <div className='flex flex-col justify-center items-center p-5'>
                         <img src={logo} alt="sharehut" width='130px' />
+                        <p className='text-white' >QuoteHut</p>
                     </div>
 
                     <div className='shadow-2xl'>
