@@ -7,7 +7,7 @@ import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom
 import { pinQuery, similarPin } from '../utils/data';
 import { HiDocumentDownload } from 'react-icons/hi';
 import MasonryGrid  from '../components/Masonry';
-import logo from '../assets/img/quotelogo.png';
+import logo from '../assets/img/quotelogo.png'
 import {AiFillDelete} from 'react-icons/ai';
 import { toJpeg } from 'html-to-image';
 import {BsFillBookmarkPlusFill} from 'react-icons/bs';
@@ -56,7 +56,13 @@ const PinDetail = () => {
             
         }
         if(quote.length >= 100) {
-            style = 'text-lg md:text-2xl  px-5'
+            style = 'text-3xl md:text-4xl  px-5'
+            if(imgH <= 300){
+                style = 'text-lg px-3'
+            }
+            if(imgH >= 500){
+                style = 'text-3xl md:text-3xl px-3'
+            }
         }
         textstyle = style
     }
@@ -221,10 +227,10 @@ const PinDetail = () => {
                 ref={imgElement}
                 onLoad={() => setImgH(imgElement.current.height)}
                />
-                 <div className='flex flex-col absolute rounded-lg w-full  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
+                 <div className='flex flex-col absolute rounded-lg w-full gap-5  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
                       
-                        <h1 className={`text-gray-100 uppercase mt-5 p-10  text-center text-bold ${textstyle} items-center z-10`}>{details.quote}</h1>
-                        <div className='absolute opacity-70 bottom-0 flex flex-col justify-center items-center'>
+                        <h1 className={`text-gray-100 uppercase mt-20  text-center text-bold ${textstyle} items-center z-10`}>{details.quote}</h1>
+                        <div className='opacity-70 bottom-0 flex flex-col justify-center items-center'>
                         <img src={logo} alt="" width='60px' />
                         <small className='text-white text-xs  pb-3 '>QuoteHut</small>
                         </div>
