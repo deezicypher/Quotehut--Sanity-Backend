@@ -1,5 +1,5 @@
-import React,{useState,useCallback, useRef} from 'react';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import React,{useState,useCallback, useRef, useEffect} from 'react';
+import { Link, redirect, useOutletContext } from 'react-router-dom';
 import {client, urlFor} from '../sanity'; 
 import {FcDownload} from 'react-icons/fc';
 import {v4 as uuidv4} from 'uuid';
@@ -12,7 +12,7 @@ import { toJpeg } from 'html-to-image';
 
 
 const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
-    const navigate = useNavigate();
+    
     const [postHovered, setPostHovered] = useState(false);
     const {user} = useOutletContext();
     const [imgH, setImgH] = useState('');
@@ -100,7 +100,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         }
     
   
-
+     
         return (
     
     <div className='mt-2 p-2'>
@@ -108,13 +108,13 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
                 ref={ref}
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
-                onClick={() => navigate(`/pin/${_id}`)}
+                onClick={() => redirect(`/pin/${_id}`)}
                 className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out" >
 
 <img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt="" ref={imgElement}
       onLoad={() => setImgH(imgElement.current.height)}/>
 <div className='flex flex-col justify-center absolute rounded-lg w-full gap-2 items-center top-0 left-0 bottom-0 right-0 bg-hQuotes'>
-                      {console.log(quote,quote.length, imgH, imgstyle)}
+                      {/*console.log(quote,quote.length, imgH, imgstyle)*/}
                         <h1 className={` text-gray-100 uppercase  mt-10 text-center text-bold z-20 ${textstyle}`}>{quote}</h1>
                        <div className='flex   flex-col  justify-center items-center'>
                         <img src={logo} alt="" width='20px' />

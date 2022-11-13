@@ -214,7 +214,7 @@ const PinDetail = () => {
         <Modal showPinModal={showCommentModal} Delete={deleteComment} cid={cid} />
         )}
         <div className='flex-1 px-2 md:px-5'>
-            {console.log(details.quote.length, textstyle, imgH)}
+            {/*console.log(details.quote.length, textstyle, imgH)*/}
         <div className='bg-gray-50'>
             <Header/>
         </div>

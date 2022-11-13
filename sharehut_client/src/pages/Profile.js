@@ -23,7 +23,7 @@ const Profile = () => {
         navigate('/Login')
     }
  
-    const activeTabStyle = 'bg-orange-400 mr-4 text-white p-2 rounded-full w-20 outline-none';
+    const activeTabStyle = 'bg-darkOrange mr-4 text-white p-2 rounded-full w-20 outline-none';
     const nonActiveTabStyle = 'text-gray-600 mr-4 font-bold p-2 rounded-lg w-20 outline-none';
     useEffect(()=> {
         const query = userQuery(id);
@@ -52,7 +52,7 @@ const Profile = () => {
     if(!user) return <Spinner message="fetching profile..."/>
     return (
         <div className='relative pb-2 h-full lg:w-full justify-center items-center'>
-
+{console.log(user)}
             <div className='flex flex-col pb-5'>
                 <div className='relative flex flex-col mb-7'>
                 <div className='flex flex-col justify-center items-center'>

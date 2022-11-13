@@ -52,7 +52,8 @@ module.exports = {
         secondaryColor: '#F0F0F0',
         blackOverlay: 'rgb(0 0 0 / 84%)',
         quotes:'#000000c9',
-        hQuotes:'#000000a3'
+        hQuotes:'#000000a3',
+        darkOrange:'#c43e0e'
       },
       keyframes: {
         'slide-in': {
