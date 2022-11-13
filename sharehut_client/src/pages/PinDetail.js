@@ -7,7 +7,7 @@ import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom
 import { pinQuery, similarPin } from '../utils/data';
 import { HiDocumentDownload } from 'react-icons/hi';
 import MasonryGrid  from '../components/Masonry';
-import logo from '../assets/img/apelogo.png'
+import logo from '../assets/img/quotelogo.png';
 import {AiFillDelete} from 'react-icons/ai';
 import { toJpeg } from 'html-to-image';
 import {BsFillBookmarkPlusFill} from 'react-icons/bs';
@@ -225,7 +225,7 @@ const PinDetail = () => {
                       
                         <h1 className={`text-gray-100 uppercase mt-5 p-10  text-center text-bold ${textstyle} items-center z-10`}>{details.quote}</h1>
                         <div className='absolute opacity-70 bottom-0 flex flex-col justify-center items-center'>
-                        <img src={logo} alt="" width='40px' />
+                        <img src={logo} alt="" width='60px' />
                         <small className='text-white text-xs  pb-3 '>QuoteHut</small>
                         </div>
                   

@@ -4,7 +4,7 @@ import {client, urlFor} from '../sanity';
 import {FcDownload} from 'react-icons/fc';
 import {v4 as uuidv4} from 'uuid';
 import {AiFillDelete} from 'react-icons/ai';
-import logo from '../assets/img/apelogo.png';
+import logo from '../assets/img/quotelogo.png';
 import {BsFillBookmarkPlusFill} from 'react-icons/bs';
 import {BsFillBookmarkDashFill} from 'react-icons/bs';
 import { toJpeg } from 'html-to-image';
@@ -113,8 +113,8 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
                         <small className='text-white text-xsm pb-3 '>QuoteHut</small>
         </div>*/}
               
-                        <div className='absolute opacity-70 bottom-0 flex flex-col justify-center items-center'>
-                        <img src={logo} alt="" width='20px' />
+                        <div className='absolute opacity-70 bottom-7 flex flex-col justify-center items-center'>
+                        <img src={logo} alt="" width='30px' />
                         <small className='text-white text-xsm pb-3 '>QuoteHut</small>
                         </div>
                         </div>
