@@ -1,6 +1,6 @@
 import React from 'react';
 import bgimage from '../assets/img/share-bg.jpeg';
-import logo from '../assets/img/quotelogo.png';
+import logo from '../assets/img/viperHut.png';
 import { useGoogleLogin} from '@react-oauth/google';
 import axios from 'axios';
 import { client } from '../sanity';
