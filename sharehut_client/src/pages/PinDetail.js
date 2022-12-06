@@ -7,7 +7,7 @@ import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom
 import { pinQuery, similarPin } from '../utils/data';
 import { HiDocumentDownload } from 'react-icons/hi';
 import MasonryGrid  from '../components/Masonry';
-import logo from '../assets/img/quotelogo.png'
+import logo from '../assets/img/viperHut.png'
 import {AiFillDelete} from 'react-icons/ai';
 import { toJpeg } from 'html-to-image';
 import {BsFillBookmarkPlusFill} from 'react-icons/bs';
@@ -34,7 +34,7 @@ const PinDetail = () => {
     const [cid, setCid] = useState('');
     const alreadySaved = !!(details?.save?.filter(item => item.postedBy._id === user._id))?.length
 
-    const {title} = details;
+   
     var textstyle = ''
     
     
@@ -167,6 +167,7 @@ const PinDetail = () => {
         }
 
         const onButtonClick = useCallback(() => {
+           
             if (ref.current === null) {
               return
             }
@@ -174,7 +175,7 @@ const PinDetail = () => {
             toJpeg(ref.current, { quality: 1.0 })
             .then((dataUrl) => {
               const link = document.createElement('a')
-              link.download = `${title}.jpeg`
+              link.download = `${details?.title}.jpeg`
               link.href = dataUrl
               link.click()
             })

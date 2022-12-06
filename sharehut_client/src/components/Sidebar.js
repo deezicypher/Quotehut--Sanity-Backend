@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../assets/img/apelogo.png';
+import logo from '../assets/img/viperHut1.png';
 import {HiHomeModern} from 'react-icons/hi2';
 import life from '../assets/img/life.jpeg'; 
 import art from '../assets/img/art.jpeg'; 

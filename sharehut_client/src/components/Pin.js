@@ -2,7 +2,7 @@ import React,{useState,useCallback, useRef, useEffect} from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import {client, urlFor} from '../sanity'; 
 import {v4 as uuidv4} from 'uuid';
-import logo from '../assets/img/quotelogo.png';
+import logo from '../assets/img/viperHut.png';
 import {BsFillBookmarkPlusFill,BsFillBookmarkDashFill} from 'react-icons/bs';
 import { toJpeg } from 'html-to-image';
 import { HiDocumentDownload } from 'react-icons/hi';
