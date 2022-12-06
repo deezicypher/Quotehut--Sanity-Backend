@@ -15,12 +15,13 @@ import {BsFillBookmarkDashFill} from 'react-icons/bs';
 import {AiFillTags} from 'react-icons/ai';
 import {FcInfo} from 'react-icons/fc';
 import Modal from '../components/Modal';
-
+import moment from 'moment';
 
 
 const PinDetail = () => {
     const [details, setDetails] = useState();
     const [similarpins, setSimilarpins] = useState(null);
+    const [saveLoading,setSaveLoading] = useState(false);
     const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
@@ -112,6 +113,7 @@ const PinDetail = () => {
 
     const savePin = e => {
         e.stopPropagation()
+        setSaveLoading(true)
         if(!alreadySaved){
             client
             .patch(id)
@@ -127,11 +129,14 @@ const PinDetail = () => {
             .commit()
             .then(()=> {
                 fetchDetails()
+                setSaveLoading(false)
             })
         }
+        setSaveLoading(false)
     }
     const unsavePin = e => {
         e.stopPropagation()
+        setSaveLoading(true)
         if(alreadySaved){
         const pintoUnsave = ['save[0]',`save[userId=="${user._id}"]`]
            client
@@ -140,8 +145,10 @@ const PinDetail = () => {
            .commit()
            .then(()=> {
             fetchDetails()
+            setSaveLoading(false)
         })
         }
+        setSaveLoading(false)
     }
 
     const deletePin = () => {
@@ -258,18 +265,25 @@ const PinDetail = () => {
  } 
         {alreadySaved? 
                          <div className='flex  justify-center gap-1 items-center'>
-                         <div className='text-gray-700 text-sm'>{details?.save?.length}</div>
-                          <BsFillBookmarkDashFill onClick={e => unsavePin(e)}  className='cursor-pointer h-5 w-5 text-red-500'/>
+                         <div className='text-gray-700 text-sm'>{details?.savedBy?.length}</div>
+                      {saveLoading?
+                     <p>...</p>
+                     :
+                      <BsFillBookmarkDashFill onClick={e => unsavePin(e)}  className='cursor-pointer h-5 w-5 text-red-500'/>
+                       }
           </div>
           :
                 <div className='flex  justify-center gap-1 items-center'>
-                <div className='text-gray-700 text-sm'>{details?.save?.length}</div>
-                 <BsFillBookmarkPlusFill onClick={e => savePin(e)}  className='cursor-pointer h-5 w-5 text-orange-500'/>
- </div>
+                <div className='text-gray-700 text-sm'>{details?.savedBy?.length}</div>
+                {saveLoading? 
+                <p>...</p>: 
+                <BsFillBookmarkPlusFill onClick={e => savePin(e)}  className='cursor-pointer h-5 w-5 text-orange-500'/>
+}</div>
  }
-       
+       <p className='text-gray-600 text-base'> - {"   "}{moment(details?.createdAt).format('MMMM Do YYYY')}</p>
         </div>
         <div>
+            {console.log(saveLoading)}
                     <h1 className='text-2xl font-bold break-words mt-3 capitalize'>
                         {details.title}
                     </h1>
