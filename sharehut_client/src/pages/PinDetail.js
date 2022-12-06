@@ -205,7 +205,7 @@ const PinDetail = () => {
         fetchDetails();
     },[])
 
-    if(!details) return <Spinner message="fetching pin..."/>
+    if(!details) return <Spinner message="fetching quote..."/>
     return (
         <>
         {pinmodal && (

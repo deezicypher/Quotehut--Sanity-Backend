@@ -1,13 +1,12 @@
 import React,{useState,useCallback, useRef, useEffect} from 'react';
-import { Link, redirect, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import {client, urlFor} from '../sanity'; 
-import {FcDownload} from 'react-icons/fc';
 import {v4 as uuidv4} from 'uuid';
-import {AiFillDelete} from 'react-icons/ai';
 import logo from '../assets/img/quotelogo.png';
-import {BsFillBookmarkPlusFill} from 'react-icons/bs';
-import {BsFillBookmarkDashFill} from 'react-icons/bs';
+import {BsFillBookmarkPlusFill,BsFillBookmarkDashFill} from 'react-icons/bs';
 import { toJpeg } from 'html-to-image';
+import { HiDocumentDownload } from 'react-icons/hi';
+
 
 
 
@@ -18,6 +17,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
     const [imgH, setImgH] = useState('');
     const ref = useRef();
     const imgElement = useRef();
+    const navigate = useNavigate();
     
     var textstyle = ''
     var imgstyle = ''
@@ -55,6 +55,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         
         textstyle = style
     }
+  
     const alreadySaved = !!(save?.filter(item => item.postedBy._id === user._id))?.length
 
     const savePin = e => {
@@ -100,7 +101,25 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         }
     
   
-     
+        const onButtonClick = useCallback(() => {
+            if (ref.current === null) {
+              return
+            }
+        
+            toJpeg(ref.current, { quality: 1.0 })
+            .then((dataUrl) => {
+              const link = document.createElement('a')
+              link.download = `${title}.jpeg`
+              link.href = dataUrl
+              link.click()
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          }, [ref])
+    
+
+
         return (
     
     <div className='mt-2 p-2'>
@@ -108,7 +127,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
                 ref={ref}
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
-                onClick={() => redirect(`/pin/${_id}`)}
+                onClick={() => navigate(`/Quote/${_id}`)}
                 className="relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out" >
 
 <img src={urlFor(image).width(250).url()} className='rounded-lg w-full' alt="" ref={imgElement}
@@ -131,16 +150,16 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
    {postHovered && (
     <div className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-0' style={{height:'100%'}} >
         <div className='flex items-center justify-between'>
-        {/*  <div className='flex gap-2'>
+         <div className='flex gap-2'>
                 <div
               download
               onClick={e => onButtonClick(e)}
-              className="bg-gray-100 w-9 h-9 cursor-pointer rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100  hover:shadow-md outline-none  "
+              className="bg-gray-100 w-7 h-7 cursor-pointer rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100  hover:shadow-md outline-none  "
               >
-                    <FcDownload/>
+                    < HiDocumentDownload/>
                 </div>
    </div>
-   */}
+   
             <div className='flex ml-auto px-1'>
             {alreadySaved? 
                          <div className='flex  justify-center gap-1 items-center'>
@@ -169,7 +188,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         </div>
 
         <Link 
-        to={`profile/${postedBy._id}`}
+        to={`/profile/${postedBy._id}`}
         className='flex gap-2 mt-4 items-center '
          >
             <img src={postedBy.image} 

@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <Feed/>
       },
       {
-        path:"/Pin/:id",
+        path:"/quote/:id",
         element: <PinDetail/>
       }
     ]},  {

@@ -8,7 +8,7 @@ import coding from '../assets/img/coding.jpeg';
 import movies from '../assets/img/movies.jpeg'; 
 import philosophy from '../assets/img/philosophy.jpeg'; 
 import self from '../assets/img/self.jpeg';
-
+import {AiFillGithub} from 'react-icons/ai';
 
 
 const notActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize'
@@ -44,7 +44,8 @@ const Sidebar = ({user, closeToggle}) => {
 
     return (
      
-        <div className='flex flex-col justify-between bg-white h-full  min-w-210 hide-scroll-bar'>
+        <div className='flex flex-col justify-between bg-white h-full overflow-y-auto  min-w-210 hide-scroll-bar'>
+       
             <div className='flex flex-col'>
              <div className='flex flex-col'>
                     <Link 
@@ -80,15 +81,19 @@ const Sidebar = ({user, closeToggle}) => {
             </div>
           
         </div>
-          {user && (
-            <Link
-            to={`/profile/${user.userName}`}
-            onClick={handleCloseSidebar}
-            className="flex my-5 mb-3 gap-2 p-2 items-center  bg-white rounded-lg shadow-lg mx-3">
-                <img src={user.image} referrerpolicy="no-referrer" className="w-2 h-2 rounded-full" alt="" />
-            <p>{user.userName}</p>
-            </Link>
-        )}
+       
+   
+         <a href='https://github.com/deezitheviper'>
+            <div
+            className="flex gap-2 p-2 items-center justify-center  bg-white rounded-lg shadow-lg mx-3">
+                <AiFillGithub fontSize={20}/>
+                <p className='text-xs'>&copy; 2022 DeezitheViper</p> 
+                
+            </div>
+            </a>
+
+
+     
         </div>
     );
 };
