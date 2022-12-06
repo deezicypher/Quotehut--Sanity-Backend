@@ -55,8 +55,10 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         
         textstyle = style
     }
+
+
   
-    const alreadySaved = !!(save?.filter(item => item.postedBy._id === user._id))?.length
+    const alreadySaved = !!(save?.filter(item => item.postedBy?._id === user?._id))?.length
 
     const savePin = e => {
         e.stopPropagation()
@@ -124,6 +126,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         return (
     
     <div className='mt-2 p-2'>
+        
         <div 
                 ref={ref}
                 onMouseEnter={() => setPostHovered(true)}
