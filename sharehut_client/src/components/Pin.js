@@ -101,7 +101,8 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
         }
     
   
-        const onButtonClick = useCallback(() => {
+        const onButtonClick = e => {
+            e.preventDefault()
             if (ref.current === null) {
               return
             }
@@ -116,7 +117,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
             .catch((err) => {
               console.log(err)
             })
-          }, [ref])
+          }
     
 
 
@@ -150,7 +151,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
    {postHovered && (
     <div className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-0' style={{height:'100%'}} >
         <div className='flex items-center justify-between'>
-         <div className='flex gap-2'>
+         {/*<div className='flex gap-2'>
                 <div
               download
               onClick={e => onButtonClick(e)}
@@ -158,7 +159,7 @@ const Pin = ({pin:{_id, image, postedBy,quote,title,save}}) => {
               >
                     < HiDocumentDownload/>
                 </div>
-   </div>
+   </div>*/}
    
             <div className='flex ml-auto px-1'>
             {alreadySaved? 
