@@ -34,8 +34,7 @@ const PinDetail = () => {
     const [cid, setCid] = useState('');
     const alreadySaved = !!(details?.save?.filter(item => item.postedBy._id === user._id))?.length
 
-
-      
+    const {title} = details;
     var textstyle = ''
     
     
@@ -175,7 +174,7 @@ const PinDetail = () => {
             toJpeg(ref.current, { quality: 1.0 })
             .then((dataUrl) => {
               const link = document.createElement('a')
-              link.download = `${details?.title}.jpeg`
+              link.download = `${title}.jpeg`
               link.href = dataUrl
               link.click()
             })
