@@ -2,7 +2,7 @@ import React,{useEffect,useRef, useState} from 'react';
 import { Outlet,useNavigate } from 'react-router-dom';
 import {CgMenuLeft} from 'react-icons/cg';
 import { Link } from 'react-router-dom';
-import logo from '../assets/img/apelogo.png';
+import logo from '../assets/img/viperHut1.png';
 import {SlClose} from 'react-icons/sl';
 import {Sidebar} from './Index.js';
 import  {client}  from '../sanity';

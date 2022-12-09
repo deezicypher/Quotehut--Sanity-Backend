@@ -37,34 +37,39 @@ const PinDetail = () => {
 
    
     var textstyle = ''
-    
-    
+    var imgstyle = ''
     if(details?.quote.length > 0){
-        const {quote} = details
         let style = ''
-    
-        if (quote.length < 100){
-            style = 'text-2xl md:text-3xl px-5'
-            if(imgH >= 450){
-                style = 'text-3xl px-5 md:text-4xl'
+        if (details?.quote.length < 100){
+            style = 'text-xl  px-3'
+            imgstyle = 'bottom-5'
+            if(imgH <= 300){
+                style = 'text-l px-3'
+                imgstyle = 'bottom-2'
             }
-        }
-        if (quote.length <= 50) {
-            style = 'text-4xl px-5 md:text-4xl '
-            if(imgH <= 240){
-                style = 'text-2xl px-3 md:text-base'
+            if(imgH >= 400){
+                style = 'text-3xl px-3 md:text-3xl'
+                imgstyle = 'bottom-3'
             }
             
         }
-        if(quote.length >= 100) {
-            style = 'text-3xl md:text-4xl  px-5'
-            if(imgH <= 300){
-                style = 'text-lg px-3'
-            }
-            if(imgH >= 500){
-                style = 'text-3xl md:text-3xl px-3'
+        if (details?.quote.length <= 50) {
+            style = 'text-4xl px-3 md:text-2xl '
+            imgstyle = 'bottom-1'
+            if(imgH <= 240){
+                style = 'text-base px-3 md:text-xl pb-0'
+                imgstyle = 'bottom-10 md:bottom-3 w'
             }
         }
+        if(details?.quote.length >= 100) {
+            style = 'text-2xl md:text-lg  px-5'
+            imgstyle = 'bottom-10 md:bottom-5'
+            if(imgH <= 300){
+                style = 'text-lg px-3'
+                imgstyle = 'bottom-0'
+            }
+        }
+        
         textstyle = style
     }
 
@@ -173,8 +178,8 @@ const PinDetail = () => {
                 }).catch(err => console.log(err))
         }
 
-        const onButtonClick = useCallback(() => {
-           
+        const onButtonClick = useCallback((title) => {
+          
             if (ref.current === null) {
               return
             }
@@ -182,7 +187,7 @@ const PinDetail = () => {
             toJpeg(ref.current, { quality: 1.0 })
             .then((dataUrl) => {
               const link = document.createElement('a')
-              link.download = `${details?.title}.jpeg`
+              link.download = `${title}.jpeg`
               link.href = dataUrl
               link.click()
             })
@@ -237,11 +242,12 @@ const PinDetail = () => {
                />
                  <div className='flex flex-col absolute rounded-lg w-full gap-5  justify-center items-center top-0 left-0 bottom-0 right-0 bg-quotes'>
                       
-                        <h1 className={`text-gray-100 uppercase mt-20  text-center text-bold ${textstyle} items-center z-10`}>{details.quote}</h1>
-                        <div className='opacity-70 bottom-0 flex flex-col justify-center items-center'>
-                        <img src={logo} alt="" width='60px' />
-                        <small className='text-white text-xs  pb-3 '>QuoteHut</small>
-                        </div>
+                        <h1 className={`text-gray-100 uppercase mt-20  text-center text-bold ${textstyle}  items-center z-10`}>{details.quote}</h1>
+                        <div className='opacity-80 bottom-0 flex flex-col justify-center items-center'>
+                        <img src={logo} alt="" className='w-[45px] md:w-[60px]' />
+                        {//<small className='text-white text-xs  pb-3 '>QuoteHut</small>
+}
+</div>
                   
                 </div>
                
@@ -250,7 +256,7 @@ const PinDetail = () => {
             <div className='flex items-center  gap-2 mb-5'>
             <div
            download
-           onClick={() => onButtonClick()}
+           onClick={() => onButtonClick(details?.title)}
            className="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-80 hover:opacity-100  hover:shadow-md outline-none  "
            >
              <HiDocumentDownload className='h-6 w-6' color='teal' />
@@ -283,7 +289,7 @@ const PinDetail = () => {
        <p className='text-gray-600 text-base'> - {"   "}{moment(details?.createdAt).format('MMMM Do YYYY')}</p>
         </div>
         <div>
-            {console.log(saveLoading)}
+           
                     <h1 className='text-2xl font-bold break-words mt-3 capitalize'>
                         {details.title}
                     </h1>
