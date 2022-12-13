@@ -19,9 +19,36 @@ const Layout = () => {
 
     const navigate = useNavigate();
 
+    const logout = () => {
+        localStorage.removeItem("user");
+      };
+
+      const checkAuthTimeout = expirationTime => {
+        setTimeout(() => {
+          logout()
+        }, expirationTime * 1000);
+    }
+    
+    const authCheckState = () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user === undefined || user === null) {
+         logout()
+        } else {
+          const expirationDate = new Date(user.expirationDate);
+          if (expirationDate <= new Date()) {
+            logout()
+          } else {
+              checkAuthTimeout(
+                (expirationDate.getTime() - new Date().getTime()) / 1000
+              )
+          }
+        }
+
+};
+
     useEffect(()=> {
         //scrollRef.current.scrollTo(0,0)
-
+        authCheckState()
         if(!userInfo) {
            navigate('/Login');
         }

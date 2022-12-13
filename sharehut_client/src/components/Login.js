@@ -25,7 +25,8 @@ const Login = () => {
                 _id:sub,
                 _type:'user',
                 userName:name,
-                image:picture
+                image:picture,
+                expirationDate: new Date(new Date().getTime() + 3600 * 1000),
             }
             localStorage.setItem('user', JSON.stringify(doc))
             client.createIfNotExists(doc).then(()=> {
