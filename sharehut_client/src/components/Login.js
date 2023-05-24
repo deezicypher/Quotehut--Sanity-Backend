@@ -1,5 +1,5 @@
 import React from 'react';
-import bgimage from '../assets/img/share-bg.jpeg';
+import bgimage from '../assets/img/bg.png';
 import logo from '../assets/img/viperHut.png';
 import { useGoogleLogin} from '@react-oauth/google';
 import axios from 'axios';
