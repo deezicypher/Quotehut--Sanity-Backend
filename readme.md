@@ -29,12 +29,10 @@ Sanity
  [MERN Stack](https://github.com/deezitheviper/QuoteSutra-MERN)
 
 
+
 # Home Page
 ![Screengrab](/home.png)
 
-# Login Page
-![Screengrab](/login.png)
 
 # Detail Page
 ![Screengrab](/detail.png)
-
