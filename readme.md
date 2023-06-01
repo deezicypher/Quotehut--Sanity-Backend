@@ -34,5 +34,4 @@ Sanity
 ![Screengrab](/home.png)
 
 
-# Detail Page
-![Screengrab](/detail.png)
+
