@@ -31,7 +31,7 @@ Sanity
 
 
 # Home Page
-![Screengrab](/home.png)
+
 
 
 
